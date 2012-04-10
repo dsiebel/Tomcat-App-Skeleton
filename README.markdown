@@ -4,7 +4,7 @@ This project is about simplifying the hosting of a multi-application-envoironmen
 
 ## Prerequistites
 For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application.
-For this setup to make even more sense i usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a webapplication in different tomcat contexts. This may look like this:
+For this setup to make even more sense I usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a webapplication in different tomcat contexts. This may look like this:
 
 ```bash
 $ ls /opt
@@ -72,7 +72,7 @@ ${CATALINA_HOME}/bin/catalina.sh start
 	<tr>
 		<td valign="top"><tt>$CATALINA_OPTS</tt></td>
 		<td valign="top">Additional runtime parameters used by the catalina engine and therefor as Java System Properties. Usually I add two system properties (${file.root} & ${log.root}) to a web application's environment to simplify access to the underlying filesystem.</td>
-		<td valign="top">'''Default:''' "-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</td>
+		<td valign="top">__Default:__ "-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</td>
 	</tr>
 </table>
 
