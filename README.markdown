@@ -5,12 +5,12 @@
 ## Folder structure
 * tomcat-app-skeleton/
  * bin/
-  * start.sh
-  * stop.sh
+    * start.sh
+    * stop.sh
  * conf/
-  * context.xml
-  * server.xml
-  * tomcat-users.xml
+    * context.xml
+    * server.xml
+    * tomcat-users.xml
  * logs/
  * server/
  * storage/
