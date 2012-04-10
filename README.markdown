@@ -74,6 +74,7 @@ ${CATALINA_HOME}/bin/catalina.sh start
 #### stop.sh
 This script can be used to gracefully stop the running tomcat instance containing your web application.
 It basically contains the same catalina configuration as the corresponsing start.sh.
+
 ```bash
 export JAVA_HOME=/path/to/java/runtime/
 export CATALINA_HOME=/path/to/tomcat/
