@@ -1,30 +1,17 @@
 
-# Wiki goes here
+# Introduction
+This project is about simplifying the hosting of a multi-application-envoironment using several different tomcat instances and versions. The tomcat-app-skeleton setup allows to combine different java- and tomcat versions to run a webapplication in it's own, specific environment.
 
+## Prerequistites
+For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application.
 
-## Folder structure
+# Folder structure
 
-__tomcat-app-skeleton/__
-
- * bin/
-  * start.sh
-  * stop.sh
- * conf/
-  * context.xml
-  * server.xml
-  * tomcat-users.xml
- * logs/
- * server/
- * storage/
- * temp/
- * webapps/
- * work/
-
-### bin/
+## bin/
 Contains all scripts used for i.e. running and stopping you application.
 __Note__ that those scripts need execution permission!
 
-#### start.sh
+### start.sh
 This is the start-script of your application. 
 It is also used to configure the application's environment:
 
@@ -71,7 +58,7 @@ ${CATALINA_HOME}/bin/catalina.sh start
 	</tr>
 </table>
 
-#### stop.sh
+### stop.sh
 This script can be used to gracefully stop the running tomcat instance containing your web application.
 It basically contains the same catalina configuration as the corresponsing start.sh.
 
@@ -86,15 +73,15 @@ ${CATALINA_HOME}/bin/catalina.sh stop
 
 __Note__ that all paths in start.sh and stop.sh have to be identical for the scripts to work properly!
 
-### conf/
+## conf/
 The conf/- folder contains the tomcat's catalina engine configuration. Therefor every knwon configuration file can be overwritten in here. In the default setup the following configurations will be included.
 Refer to the tomcat configuration guid for further information on configuring a tomcat installation: http://tomcat.apache.org/tomcat-7.0-doc/
 
-#### context.xml
+### context.xml
 Contains the container context configuration specifying application resources. 
 Initially this configuration file is empty.
 
-#### tomcat-users.xml
+### tomcat-users.xml
 The tomcat roles- user store. This file initially contains some default users:
 
 ```xml
@@ -107,11 +94,11 @@ The tomcat roles- user store. This file initially contains some default users:
 </tomcat-users>
 ```
 
-#### server.xml
+### server.xml
 Tomcat server configuration. The configuration contains some minor changes to the Connectors' ports in constrast to a freshly downloaded tomcat installation.
 
 
-### logs/
+## logs/
 The application's log directory. This directory will be used for the instance's __catalina.out__.
 Also this directory will be available to the application as system property __log.root__ by default. This property may be used directly in your log4j.properties file for example:
 
@@ -120,10 +107,10 @@ log4j.appender.R=org.apache.log4j.RollingFileAppender
 log4j.appender.R.File=${log.root}/myApp.log
 ```
 
-### server/
+## server/
 Server directory of the catalina engine.
 
-### storage/
+## storage/
 This is the applications default file-base. All files like a lucene index or a derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property __file.root__.
 Therefor this can be used directly inside your spring configuration for example:
 
@@ -132,13 +119,13 @@ Therefor this can be used directly inside your spring configuration for example:
 		p:importFilesPath="${file.root}/import"/>
 ```
 
-### temp/
+## temp/
 This directory will be used for the application's/tomcat's PID-file by default.
 Also it will be set as system property __java.io.tmpdir__.
 
-### webapps/
+## webapps/
 The tomcat's webapps directory for this application. Place your war-files in here.
 
-### work/
+## work/
 Catalina work directory.
 
