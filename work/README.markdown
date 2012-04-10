@@ -1,2 +1,2 @@
 ## work/
-Catalina work directory.
+Temporary working directories for web applications.
