@@ -4,6 +4,24 @@ This project is about simplifying the hosting of a multi-application-envoironmen
 
 ## Prerequistites
 For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application.
+For this setup to make even more sense i usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a webapplication in different tomcat contexts. This may look like this:
+
+```bash
+$ ls /opt
+
+apache-tomcat5
+apache-tomcat-5.5
+apache-tomcat6
+apache-tomcat-6.0.26
+apache-tomcat7
+apache-tomcat-7.0.26
+java-1.6
+	jdk1.6.0_20
+	jre1.6.0_20
+```
+
+where __apache-tomcat5__, __apache-tomcat6__ and __apache-tomcat7__ are symlinks to the newest corresponsing major version of the tomcat installation.
+
 
 # Folder structure
 
