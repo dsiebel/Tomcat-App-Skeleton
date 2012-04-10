@@ -1,7 +1,8 @@
-Wiki goes here
+
+# Wiki goes here
 
 
-Folder structure:
+## Folder structure
 * tomcat-app-skeleton/
  * bin/
   * start.sh
