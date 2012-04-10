@@ -1,0 +1,2 @@
+## work/
+Catalina work directory.

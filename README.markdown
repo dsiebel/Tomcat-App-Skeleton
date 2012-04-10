@@ -67,7 +67,7 @@ ${CATALINA_HOME}/bin/catalina.sh start
 	<tr>
 		<td valign="top"><tt>$CATALINA_PID</tt></td>
 		<td valign="top">Realpath of the process pid file. This is essential for the start- and stop-scripts to work properly</td>
-		<td valign="top">${CATALINA_BASE}/temp/myNewApp.pid</td>
+		<td valign="top">${CATALINA_BASE}/temp/myapp.pid</td>
 	</tr>
 	<tr>
 		<td valign="top"><tt>$CATALINA_OPTS</tt></td>
@@ -151,4 +151,3 @@ The tomcat's webapps directory for this application. Place your war-files in her
 
 ## work/
 Catalina work directory.
-
