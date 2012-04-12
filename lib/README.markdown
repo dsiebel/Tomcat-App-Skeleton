@@ -1,5 +1,5 @@
 ## lib/
-Libraries and classes. Add you application-specific libraries (if not already compiled inside your war-file) such as database drivers into this directory.
+Libraries and classes. Add your application specific libraries (if not already compiled inside your war-file) such as database drivers here.
 
 __From the tomcat docs:__
 

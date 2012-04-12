@@ -1,5 +1,5 @@
 ## storage/
-This is the applications default file-base. All files like a Lucene index or a Derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property __file.root__.
+This is the applications default file-base. All data like persistent files, a Lucene index or a Derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property __file.root__.
 Therefor this can be used directly inside your spring configuration for example:
 
 ```xml

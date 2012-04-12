@@ -218,7 +218,7 @@ The tomcat roles and user file. This file initially contains some default users 
 Tomcat server configuration. The configuration contains some minor changes to the Connectors' ports in constrast to a freshly downloaded tomcat installation. The port used go from 11000 up to 11999 splitted in blocks á 10 Ports per application (at least that's the plan). You can, of course, apply other port ranges if neccessary.
 
 ## lib/
-Libraries and classes. Add you application-specific libraries (if not already compiled inside your war-file) such as database drivers into this directory.
+Libraries and classes. Add your application specific libraries (if not already compiled inside your war-file) such as database drivers here.
 
 __From the tomcat docs:__
 
@@ -237,7 +237,7 @@ __From the tomcat docs:__
 
 
 ## logs/
-The application's log directory. This directory will be used for the instance's _catalina.out_ for example.
+The application's log directory. This directory will be used for the tomcat's _catalina.out_ for example.
 Also this directory will be available to the application as system property __log.root__ by default. This property may be used directly in your log4j.properties file for example:
 
 ```
@@ -249,7 +249,7 @@ log4j.appender.R.File=${log.root}/myApp.log
 Server directory of the catalina engine.
 
 ## storage/
-This is the applications default file-base. All files like a Lucene index or a Derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property __file.root__.
+This is the applications default file-base. All data like persistent files, a Lucene index or a Derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property __file.root__.
 Therefor this can be used directly inside your spring configuration for example:
 
 ```xml

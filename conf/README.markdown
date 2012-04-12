@@ -1,9 +1,8 @@
 ## conf/
-The _conf/_ folder contains the tomcat's configuration. Therefor every knwon configuration file can be overwritten in here. In the default setup the following configurations will be included.
-Refer to the [tomcat configuration guide](http://tomcat.apache.org/tomcat-7.0-doc/) for further information on configuring a tomcat installation.
+The _conf/_ folder contains the tomcat's configuration. Therefor every knwon configuration file can be overwritten in here. In the default setup the following configurations will be included. Refer to the [tomcat configuration guide](http://tomcat.apache.org/tomcat-7.0-doc/) for further information on configuring a tomcat installation.
 
 ### Catalina/localhost/manager.xml
-This file holds the context configuration for the tomcat installation's default manager application. The manager will be referenced from CATALINA_HOME as configured in your _start.sh_:
+This file holds the context configuration for the tomcat's default manager application. The manager will be referenced from CATALINA_HOME as configured in your _start.sh_:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

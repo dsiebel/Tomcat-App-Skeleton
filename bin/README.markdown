@@ -46,7 +46,7 @@ ${CATALINA_HOME}/bin/catalina.sh start
 	<tr>
 		<td valign="top"><tt>CATALINA_OPTS</tt></td>
 		<td valign="top">(Optional) Java runtime options used when the "start", "run" or "debug" command is executed. Include here and not in JAVA_OPTS all options, that should only be used by Tomcat itself, not by the stop process, the version command etc. Examples are heap size, GC logging, JMX ports etc.
-		I Usually add two system properties (<em>file.root</em> & <em>log.root</em>) to a web application's environment to simplify logging and access to the underlying filesystem in a multiple environment scenario (dev, staging, production) where those paths may vary.</td>
+		I Usually add two system properties (<em>file.root</em> & <em>log.root</em>) to a web application's environment to simplify logging and access to the underlying filesystem in a multiple environment scenario (test, dev, staging, production) where those paths may vary.</td>
 		<td valign="top"><strong>default:</strong> "-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</td>
 	</tr>
 </table>
@@ -109,8 +109,8 @@ Further available variables are - as explained in the tomcat docs in catalina.sh
 </table>
 
 ### stop.sh
-This script can be used to gracefuly stop the running tomcat instance containing your web application.
-It basically contains the same catalina configuration as the corresponsing _start.sh_.
+This script can be used to gracefuly stop the running tomcat containing your web application.
+It basically contains the same catalina configuration as the corresponding _start.sh_.
 
 ```bash
 export JAVA_HOME=/path/to/java/runtime/
