@@ -30,8 +30,9 @@ The tomcat roles and user file. This file initially contains some default users 
 <tomcat-users>
         <role rolename="admin"/>
         <role rolename="manager"/>
+        <role rolename="manager-gui"/>
         <role rolename="tomcat"/>
-        <user username="tomcat" password="tomcat" roles="admin,manager,tomcat"/>
+        <user username="tomcat" password="tomcat" roles="admin,manager,tomcat,manager-gui"/>
 </tomcat-users>
 ```
 
