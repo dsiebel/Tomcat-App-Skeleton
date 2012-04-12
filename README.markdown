@@ -16,15 +16,10 @@ From the Tomcat docs (RUNNING.txt):
 > of $CATALINA_HOME:
 > 
 > * bin  - Only setenv.sh (*nix), setenv.bat (windows) and tomcat-juli.jar
-> 
 > * conf - Server configuration files (including server.xml)
-> 
 > * logs - Log and output files
-> 
 > * webapps - Automatically loaded web applications
-> 
-> * work - Temporary working directories for web applications
-> 
+> * work - Temporary working directories for web applications 
 > * temp - Directory used by the JVM for temporary files (java.io.tmpdir)
 > 
 > Note that by default Tomcat will first try to load classes and JARs from
@@ -38,8 +33,7 @@ From the Tomcat docs (RUNNING.txt):
 
 
 ## Prerequisites
-For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application.
-For this setup to make even more sense I usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a web application in different tomcat contexts in my DEV environment. This usually looks like this:
+For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application. To make even more sense I usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a web application in different tomcat contexts in my DEV environment. This usually looks like this:
 
 ```
 /opt/apache-tomcat5 -> /opt/apache-tomcat-5.5/
@@ -53,7 +47,7 @@ For this setup to make even more sense I usually happen to have the three main t
 /opt/jre1.7.0_03/
 ```
 
-where __apache-tomcat5__, __apache-tomcat6__ and __apache-tomcat7__ are symlinks to the newest corresponsing major version of the tomcat installation.
+where __apache-tomcat5__, __apache-tomcat6__ and __apache-tomcat7__ are symlinks to the newest corresponding major version of the tomcat installation.
 
 
 # Folder structure
@@ -106,7 +100,7 @@ ${CATALINA_HOME}/bin/catalina.sh start
 	<tr>
 		<td valign="top"><tt>CATALINA_OPTS</tt></td>
 		<td valign="top">(Optional) Java runtime options used when the "start", "run" or "debug" command is executed. Include here and not in JAVA_OPTS all options, that should only be used by Tomcat itself, not by the stop process, the version command etc. Examples are heap size, GC logging, JMX ports etc.
-		I Usually add two system properties (<em>file.root</em> & <em>log.root</em>) to a web application's environment to simplify logging and access to the underlying filesystem in a multiple environment scenario (dev, staging, production) where those paths may vary.</td>
+		I Usually add two system properties (<em>file.root</em> & <em>log.root</em>) to a web application's environment to simplify logging and access to the underlying filesystem in a multiple environment scenario (test, dev, staging, production) where those paths may vary.</td>
 		<td valign="top"><strong>default:</strong> "-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</td>
 	</tr>
 </table>
@@ -169,8 +163,8 @@ Further available variables are - as explained in the tomcat docs in catalina.sh
 </table>
 
 ### stop.sh
-This script can be used to gracefuly stop the running tomcat instance containing your web application.
-It basically contains the same catalina configuration as the corresponsing _start.sh_.
+This script can be used to gracefuly stop the running tomcat containing your web application.
+It basically contains the same catalina configuration as the corresponding _start.sh_.
 
 ```bash
 export JAVA_HOME=/path/to/java/runtime/
@@ -184,11 +178,10 @@ ${CATALINA_HOME}/bin/catalina.sh stop
 __Note__ that all paths in _start.sh_ and _stop.sh_ have to be identical for the scripts to work properly!
 
 ## conf/
-The _conf/_ folder contains the tomcat's configuration. Therefor every knwon configuration file can be overwritten in here. In the default setup the following configurations will be included.
-Refer to the [tomcat configuration guide](http://tomcat.apache.org/tomcat-7.0-doc/) for further information on configuring a tomcat installation.
+The _conf/_ folder contains the tomcat's configuration. Therefor every knwon configuration file can be overwritten in here. In the default setup the following configurations will be included. Refer to the [tomcat configuration guide](http://tomcat.apache.org/tomcat-7.0-doc/) for further information on configuring a tomcat installation.
 
 ### Catalina/localhost/manager.xml
-This file holds the context configuration for the tomcat installation's default manager application. The manager will be referenced from CATALINA_HOME as configured in your _start.sh_:
+This file holds the context configuration for the tomcat's default manager application. The manager will be referenced from CATALINA_HOME as configured in your _start.sh_:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
