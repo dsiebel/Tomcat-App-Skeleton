@@ -1,4 +1,3 @@
-
 # Introduction
 This project is about simplifying the hosting of a multi-application-envoironment using several different tomcat instances and versions. The tomcat-app-skeleton setup allows to combine different java- and tomcat versions to run a web application in it's own, specific environment.
 
@@ -215,8 +214,9 @@ The tomcat roles and user file. This file initially contains some default users 
 <tomcat-users>
         <role rolename="admin"/>
         <role rolename="manager"/>
+        <role rolename="manager-gui"/>
         <role rolename="tomcat"/>
-        <user username="tomcat" password="tomcat" roles="admin,manager,tomcat"/>
+        <user username="tomcat" password="tomcat" roles="admin,manager,tomcat,manager-gui"/>
 </tomcat-users>
 ```
 
