@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tomcat-app-skeleton by dsiebel</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Tomcat-app-skeleton</h1>
+        <p class="header">A generic, basic Tomcat Application Setup</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/dsiebel/Tomcat-App-Skeleton/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/dsiebel/Tomcat-App-Skeleton/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/dsiebel/Tomcat-App-Skeleton">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/dsiebel">dsiebel</a></p>
+
+
+      </header>
+      <section>
+        <h1>Introduction</h1>
+
+<p>This project is about simplifying the hosting of a multi-application-environment using seperate tomcat installations. 
+The tomcat-app-skeleton setup allows to combine different java- and tomcat versions to run a web application in it's own, specific environment.</p>
+
+<p>From the Tomcat docs (RUNNING.txt):</p>
+
+<blockquote>
+<p><strong>Advanced Configuration - Multiple Tomcat Instances</strong></p>
+
+<p>In many circumstances, it is desirable to have a single copy of a Tomcat 
+binary distribution shared among multiple users on the same server.  To make
+this possible, you can set the $CATALINA_BASE environment variable to e
+directory that contains the files for your 'personal' Tomcat instance.</p>
+
+<p>When you use $CATALINA_BASE, Tomcat will calculate all relative references for
+files in the following directories based on the value of $CATALINA_BASE instead
+of $CATALINA_HOME:</p>
+
+<ul>
+<li>bin  - Only setenv.sh (*nix), setenv.bat (windows) and tomcat-juli.jar</li>
+<li>conf - Server configuration files (including server.xml)</li>
+<li>logs - Log and output files</li>
+<li>webapps - Automatically loaded web applications</li>
+<li>work - Temporary working directories for web applications </li>
+<li>temp - Directory used by the JVM for temporary files (java.io.tmpdir)</li>
+</ul>
+<p>Note that by default Tomcat will first try to load classes and JARs from
+$CATALINA_BASE/lib and then $CATALINA_HOME/lib. You can place instance specific
+JARs and classes (e.g. JDBC drivers) in $CATALINA_BASE/lib whilst keeping the
+standard Tomcat JARs in $CATALINA_HOME/lib.</p>
+
+<p>If you do not set $CATALINA_BASE, $CATALINA_BASE will default to the same value
+as $CATALINA_HOME, which means that the same directory is used for all relative
+path resolutions.</p>
+</blockquote>
+
+<h2>Prerequisites</h2>
+
+<p>For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application. To make even more sense I usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a web application in different tomcat contexts in my DEV environment. This usually looks like this:</p>
+
+<pre><code>/opt/apache-tomcat5 -&gt; /opt/apache-tomcat-5.5/
+/opt/apache-tomcat-5.5/
+/opt/apache-tomcat6 -&gt; /opt/apache-tomcat-6.0.26/
+/opt/apache-tomcat-6.0.26/
+/opt/apache-tomcat-6.0.35/
+/opt/apache-tomcat7 -&gt; /opt/apache-tomcat-7.0.26/
+/opt/apache-tomcat-7.0.26/
+/opt/jre1.6.0_20/
+/opt/jre1.7.0_03/
+</code></pre>
+
+<p>where <strong>apache-tomcat5</strong>, <strong>apache-tomcat6</strong> and <strong>apache-tomcat7</strong> are symlinks to the newest corresponding major version of the tomcat installation.</p>
+
+<h1>Folder structure</h1>
+
+<h2>bin/</h2>
+
+<p>Contains the scripts used for i.e. running and stopping you application.
+<strong>Note</strong> that those scripts need execution permission!
+You can add additional executables to this directory if needed.</p>
+
+<h3>start.sh</h3>
+
+<p>This is the start-script of your web application. 
+It is also used to configure the application's environment:</p>
+
+<div class="highlight">
+<pre><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/path/to/java/runtime/
+<span class="nb">export </span><span class="nv">CATALINA_HOME</span><span class="o">=</span>/path/to/tomcat/
+<span class="nb">export </span><span class="nv">CATALINA_BASE</span><span class="o">=</span>/path/to/my/app
+<span class="nb">export </span><span class="nv">CATALINA_PID</span><span class="o">=</span><span class="k">${</span><span class="nv">CATALINA_BASE</span><span class="k">}</span>/temp/myapp.pid
+<span class="nb">export </span><span class="nv">CATALINA_OPTS</span><span class="o">=</span><span class="s2">"-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</span>
+
+<span class="k">${</span><span class="nv">CATALINA_HOME</span><span class="k">}</span>/bin/catalina.sh start
+</pre>
+</div>
+
+
+<table>
+<tr>
+<th width="20%">Variable</th>
+        <th>Description</th>
+        <th width="20%">Sample</th>
+    </tr>
+<tr>
+<td valign="top"><tt>JAVA_HOME</tt></td>
+        <td valign="top">Home path of the Java Runtime Environment (or JDK). Must point at a JDK installation to run tomcat with the "debug" argument.</td>
+        <td valign="top">/opt/java-1.6/jdk1.6.0_20</td>
+    </tr>
+<tr>
+<td valign="top"><tt>CATALINA_HOME</tt></td>
+        <td valign="top">Home path of the tomcat installation to use</td>
+        <td valign="top">/opt/apache-tomcat7</td>
+    </tr>
+<tr>
+<td valign="top"><tt>CATALINA_BASE</tt></td>
+        <td valign="top">Base path of your application (Base directory for resolving dynamic portions of a Catalina installation.  If not present, resolves to the same directory that CATALINA_HOME points to)</td>
+        <td valign="top">/path/to/my/app</td>
+    </tr>
+<tr>
+<td valign="top"><tt>CATALINA_PID</tt></td>
+        <td valign="top">(Optional) Path of the file which contains the pid of the catalina startup java process, when start (fork) is used. This is essential for _start.sh_ and _stop.sh_ to work properly</td>
+        <td valign="top">${CATALINA_BASE}/temp/myapp.pid</td>
+    </tr>
+<tr>
+<td valign="top"><tt>CATALINA_OPTS</tt></td>
+        <td valign="top">(Optional) Java runtime options used when the "start", "run" or "debug" command is executed. Include here and not in JAVA_OPTS all options, that should only be used by Tomcat itself, not by the stop process, the version command etc. Examples are heap size, GC logging, JMX ports etc.
+        I Usually add two system properties (<em>file.root</em> &amp; <em>log.root</em>) to a web application's environment to simplify logging and access to the underlying filesystem in a multiple environment scenario (test, dev, staging, production) where those paths may vary.</td>
+        <td valign="top">
+<strong>default:</strong> "-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</td>
+    </tr>
+</table><p>Further available variables are - as explained in the tomcat docs in catalina.sh:</p>
+
+<table>
+<tr>
+<th width="20%">Variable</th>
+        <th>Description</th>
+    </tr>
+<tr>
+<td valign="top"><tt>CATALINA_OUT</tt></td>
+        <td valign="top">(Optional) Full path to a file where stdout and stderr will be redirected. 
+        Default is $CATALINA_BASE/logs/catalina.out</td>
+    </tr>
+<tr>
+<td valign="top"><tt>CATALINA_TMPDIR</tt></td>
+        <td valign="top">(Optional) Directory path location of temporary directory the JVM should use (java.io.tmpdir). Defaults to $CATALINA_BASE/temp.</td>
+    </tr>
+<tr>
+<td valign="top"><tt>JRE_HOME</tt></td>
+        <td valign="top">Must point at your Java Runtime installation. Defaults to JAVA_HOME if empty. If JRE_HOME and JAVA_HOME are both set, JRE_HOME is used.</td>
+    </tr>
+<tr>
+<td valign="top"><tt>JAVA_ENDORSED_DIRS</tt></td>
+        <td valign="top">(Optional) Lists of of colon separated directories containing some jars in order to allow replacement of APIs created outside of the JCP (i.e. DOM and SAX from W3C). It can also be used to update the XML parser implementation. Defaults to $CATALINA_HOME/endorsed.</td>
+    </tr>
+<tr>
+<td valign="top"><tt>JPDA_TRANSPORT</tt></td>
+        <td valign="top">(Optional) JPDA transport used when the "jpda start" command is executed. The default is "dt_socket".</td>
+    </tr>
+<tr>
+<td valign="top"><tt>JPDA_ADDRESS</tt></td>
+        <td valign="top">(Optional) Java runtime options used when the "jpda start" command is executed. The default is 8000.</td>
+    </tr>
+<tr>
+<td valign="top"><tt>JPDA_SUSPEND</tt></td>
+        <td valign="top">(Optional) Java runtime options used when the "jpda start" command is executed. Specifies whether JVM should suspend execution immediately after startup. Default is "n".</td>
+    </tr>
+<tr>
+<td valign="top"><tt>JPDA_OPTS</tt></td>
+        <td valign="top">(Optional) Java runtime options used when the "jpda start" command is executed. If used, JPDA_TRANSPORT, JPDA_ADDRESS, and JPDA_SUSPEND are ignored. Thus, all required jpda options MUST be specified. The default is:
+            <pre>
+                -agentlib:jdwp=transport=$JPDA_TRANSPORT,
+                    address=$JPDA_ADDRESS,server=y,suspend=$JPDA_SUSPEND
+            </pre>
+        </td>
+    </tr>
+<tr>
+<td valign="top"><tt>LOGGING_CONFIG</tt></td>
+        <td valign="top">(Optional) Override Tomcat's logging config file Example (all one line)
+            <pre>LOGGING_CONFIG="-Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties"</pre>
+</td>
+    </tr>
+<tr>
+<td valign="top"><tt>LOGGING_MANAGER</tt></td>
+        <td valign="top">(Optional) Override Tomcat's logging manager Example (all one line)
+            <pre>LOGGING_MANAGER="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"</pre>
+</td>
+    </tr>
+</table><h3>stop.sh</h3>
+
+<p>This script can be used to gracefuly stop the running tomcat containing your web application.
+It basically contains the same catalina configuration as the corresponding <em>start.sh</em>.</p>
+
+<div class="highlight">
+<pre><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/path/to/java/runtime/
+<span class="nb">export </span><span class="nv">CATALINA_HOME</span><span class="o">=</span>/path/to/tomcat/
+<span class="nb">export </span><span class="nv">CATALINA_BASE</span><span class="o">=</span>/path/to/my/app
+<span class="nb">export </span><span class="nv">CATALINA_PID</span><span class="o">=</span><span class="k">${</span><span class="nv">CATALINA_BASE</span><span class="k">}</span>/temp/myapp.pid
+
+<span class="k">${</span><span class="nv">CATALINA_HOME</span><span class="k">}</span>/bin/catalina.sh stop
+</pre>
+</div>
+
+
+<p><strong>Note</strong> that all paths in <em>start.sh</em> and <em>stop.sh</em> have to be identical for the scripts to work properly!</p>
+
+<h2>conf/</h2>
+
+<p>The <em>conf/</em> folder contains the tomcat's configuration. Therefor every knwon configuration file can be overwritten in here. In the default setup the following configurations will be included. Refer to the <a href="http://tomcat.apache.org/tomcat-7.0-doc/">tomcat configuration guide</a> for further information on configuring a tomcat installation.</p>
+
+<h3>Catalina/localhost/manager.xml</h3>
+
+<p>This file holds the context configuration for the tomcat's default manager application. The manager will be referenced from CATALINA<em>HOME as configured in your _start.sh</em>:</p>
+
+<div class="highlight">
+<pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;Context</span> <span class="na">docBase=</span><span class="s">"${catalina.home}/webapps/manager"</span>
+    <span class="na">antiResourceLocking=</span><span class="s">"false"</span> <span class="na">privileged=</span><span class="s">"true"</span> <span class="nt">&gt;</span>
+<span class="nt">&lt;/Context&gt;</span>
+</pre>
+</div>
+
+
+<p><strong>From the tomcat docs (RUNNING.txt):</strong></p>
+
+<blockquote>
+<p>It might be useful to note that the values of <strong>CATALINA_HOME</strong> and
+<strong>CATALINA_BASE</strong> can be referenced in the XML configuration files processed
+by Tomcat as <strong>${catalina.home}</strong> and <strong>${catalina.base}</strong> respectively.</p>
+</blockquote>
+
+<h3>context.xml</h3>
+
+<p>Contains the container context configuration specifying application resources. 
+Initially this configuration file is empty.</p>
+
+<h3>tomcat-users.xml</h3>
+
+<p>The tomcat roles and user file. This file initially contains some default users that can be used from within your application (i.e. security constraints in your application's <em>web.xml</em>):</p>
+
+<div class="highlight">
+<pre><span class="cp">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span>
+<span class="nt">&lt;tomcat-users&gt;</span>
+        <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"admin"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"manager"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"manager-gui"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"tomcat"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">username=</span><span class="s">"tomcat"</span> <span class="na">password=</span><span class="s">"tomcat"</span> <span class="na">roles=</span><span class="s">"admin,manager,tomcat,manager-gui"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/tomcat-users&gt;</span>
+</pre>
+</div>
+
+
+<h3>server.xml</h3>
+
+<p>Tomcat server configuration. The configuration contains some minor changes to the Connectors' ports in constrast to a freshly downloaded tomcat installation. The port used go from 11000 up to 11999 splitted in blocks á 10 Ports per application (at least that's the plan). You can, of course, apply other port ranges if neccessary.</p>
+
+<h2>lib/</h2>
+
+<p>Libraries and classes. Add your application specific libraries (if not already compiled inside your war-file) such as database drivers here.</p>
+
+<p><strong>From the tomcat docs:</strong></p>
+
+<blockquote>
+<p>In the default configuration the JAR libraries and classes both in
+CATALINA_BASE/lib and in CATALINA_HOME/lib will be added to the common
+classpath, but the ones in CATALINA_BASE will be added first and thus will
+be searched first.</p>
+
+<p>The idea is that you may leave the standard Tomcat libraries in
+CATALINA_HOME/lib and add other ones such as database drivers into
+CATALINA_BASE/lib.</p>
+
+<p>In general it is advised to never share libraries between web applications,
+but put them into WEB-INF/lib directories inside the applications. See
+Classloading documentation in the User Guide for details.</p>
+</blockquote>
+
+<h2>logs/</h2>
+
+<p>The application's log directory. This directory will be used for the tomcat's <em>catalina.out</em> for example.
+Also this directory will be available to the application as system property <strong>log.root</strong> by default. This property may be used directly in your log4j.properties file for example:</p>
+
+<pre><code>log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=${log.root}/myApp.log
+</code></pre>
+
+<h2>server/</h2>
+
+<p>Server directory of the catalina engine.</p>
+
+<h2>storage/</h2>
+
+<p>This is the applications default file-base. All data like persistent files, a Lucene index or a Derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property <strong>file.root</strong>.
+Therefor this can be used directly inside your spring configuration for example:</p>
+
+<div class="highlight">
+<pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"mySampleBean"</span> <span class="na">class=</span><span class="s">"com.acme.Importer"</span> <span class="na">p:importFilesPath=</span><span class="s">"${file.root}/import"</span><span class="nt">/&gt;</span>
+</pre>
+</div>
+
+
+<p>Or you can use it by calling</p>
+
+<div class="highlight">
+<pre><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"file.root"</span><span class="o">);</span>
+</pre>
+</div>
+
+
+<h2>temp/</h2>
+
+<p>Directory used by the JVM for temporary files. Will be set as system property <strong>java.io.tmpdir</strong>.
+This directory will also be used for the application's/tomcat's PID-file by default.</p>
+
+<h2>webapps/</h2>
+
+<p>Automatically loaded web applications. Place your war-files in here.</p>
+
+<h2>work/</h2>
+
+<p>Temporary working directories for web applications.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-30854548-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
