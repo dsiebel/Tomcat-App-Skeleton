@@ -97,17 +97,14 @@ You can add additional executables to this directory if needed.</p>
 <p>This is the start-script of your web application. 
 It is also used to configure the application's environment:</p>
 
-<div class="highlight">
-<pre><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/path/to/java/runtime/
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/path/to/java/runtime/
 <span class="nb">export </span><span class="nv">CATALINA_HOME</span><span class="o">=</span>/path/to/tomcat/
 <span class="nb">export </span><span class="nv">CATALINA_BASE</span><span class="o">=</span>/path/to/my/app
 <span class="nb">export </span><span class="nv">CATALINA_PID</span><span class="o">=</span><span class="k">${</span><span class="nv">CATALINA_BASE</span><span class="k">}</span>/temp/myapp.pid
 <span class="nb">export </span><span class="nv">CATALINA_OPTS</span><span class="o">=</span><span class="s2">"-Dfile.root=${CATALINA_BASE}/storage -Dlog.root=${CATALINA_BASE}/logs"</span>
 
 <span class="k">${</span><span class="nv">CATALINA_HOME</span><span class="k">}</span>/bin/catalina.sh start
-</pre>
-</div>
-
+</pre></div>
 
 <table>
 <tr>
@@ -204,16 +201,13 @@ It is also used to configure the application's environment:</p>
 <p>This script can be used to gracefuly stop the running tomcat containing your web application.
 It basically contains the same catalina configuration as the corresponding <em>start.sh</em>.</p>
 
-<div class="highlight">
-<pre><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/path/to/java/runtime/
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/path/to/java/runtime/
 <span class="nb">export </span><span class="nv">CATALINA_HOME</span><span class="o">=</span>/path/to/tomcat/
 <span class="nb">export </span><span class="nv">CATALINA_BASE</span><span class="o">=</span>/path/to/my/app
 <span class="nb">export </span><span class="nv">CATALINA_PID</span><span class="o">=</span><span class="k">${</span><span class="nv">CATALINA_BASE</span><span class="k">}</span>/temp/myapp.pid
 
 <span class="k">${</span><span class="nv">CATALINA_HOME</span><span class="k">}</span>/bin/catalina.sh stop
-</pre>
-</div>
-
+</pre></div>
 
 <p><strong>Note</strong> that all paths in <em>start.sh</em> and <em>stop.sh</em> have to be identical for the scripts to work properly!</p>
 
@@ -225,14 +219,11 @@ It basically contains the same catalina configuration as the corresponding <em>s
 
 <p>This file holds the context configuration for the tomcat's default manager application. The manager will be referenced from CATALINA<em>HOME as configured in your _start.sh</em>:</p>
 
-<div class="highlight">
-<pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<div class="highlight"><pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="nt">&lt;Context</span> <span class="na">docBase=</span><span class="s">"${catalina.home}/webapps/manager"</span>
     <span class="na">antiResourceLocking=</span><span class="s">"false"</span> <span class="na">privileged=</span><span class="s">"true"</span> <span class="nt">&gt;</span>
 <span class="nt">&lt;/Context&gt;</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p><strong>From the tomcat docs (RUNNING.txt):</strong></p>
 
@@ -251,8 +242,7 @@ Initially this configuration file is empty.</p>
 
 <p>The tomcat roles and user file. This file initially contains some default users that can be used from within your application (i.e. security constraints in your application's <em>web.xml</em>):</p>
 
-<div class="highlight">
-<pre><span class="cp">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span>
+<div class="highlight"><pre><span class="cp">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span>
 <span class="nt">&lt;tomcat-users&gt;</span>
         <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"admin"</span><span class="nt">/&gt;</span>
         <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"manager"</span><span class="nt">/&gt;</span>
@@ -260,9 +250,7 @@ Initially this configuration file is empty.</p>
         <span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">"tomcat"</span><span class="nt">/&gt;</span>
         <span class="nt">&lt;user</span> <span class="na">username=</span><span class="s">"tomcat"</span> <span class="na">password=</span><span class="s">"tomcat"</span> <span class="na">roles=</span><span class="s">"admin,manager,tomcat,manager-gui"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/tomcat-users&gt;</span>
-</pre>
-</div>
-
+</pre></div>
 
 <h3>server.xml</h3>
 
@@ -307,19 +295,13 @@ log4j.appender.R.File=${log.root}/myApp.log
 <p>This is the applications default file-base. All data like persistent files, a Lucene index or a Derby database directory should be placed in here. To simplify access to this folder, it will be available to the application as system property <strong>file.root</strong>.
 Therefor this can be used directly inside your spring configuration for example:</p>
 
-<div class="highlight">
-<pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"mySampleBean"</span> <span class="na">class=</span><span class="s">"com.acme.Importer"</span> <span class="na">p:importFilesPath=</span><span class="s">"${file.root}/import"</span><span class="nt">/&gt;</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"mySampleBean"</span> <span class="na">class=</span><span class="s">"com.acme.Importer"</span> <span class="na">p:importFilesPath=</span><span class="s">"${file.root}/import"</span><span class="nt">/&gt;</span>
+</pre></div>
 
 <p>Or you can use it by calling</p>
 
-<div class="highlight">
-<pre><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"file.root"</span><span class="o">);</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"file.root"</span><span class="o">);</span>
+</pre></div>
 
 <h2>temp/</h2>
 
@@ -338,28 +320,7 @@ This directory will also be used for the application's/tomcat's PID-file by defa
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
-		          <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-30854548-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-<!-- Piwik --> 
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.dsiebel.com/" : "http://piwik.dsiebel.com/");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 3);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="http://piwik.dsiebel.com/piwik.php?idsite=3" style="border:0" alt="" /></p></noscript>
-<!-- End Piwik Tracking Code -->
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
