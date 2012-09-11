@@ -16,7 +16,9 @@
 
         <Service name="Catalina">
                 <Connector port="11000" protocol="HTTP/1.1"
-                                                        connectionTimeout="20000"/>
+                        connectionTimeout="20000"
+                        maxThreads="400"
+                        URLEncoding="UTF-8"/>
 
                 <Connector port="11009" protocol="AJP/1.3"/>
 
