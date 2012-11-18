@@ -36,8 +36,6 @@ From the Tomcat docs (RUNNING.txt):
 For this setup to work you need at least one Java (JRE or JDK) and one Tomcat installation on your machine which can be applied to a specific application. To make even more sense I usually happen to have the three main tomcat versions available to the app-skeleton to be able to test a web application in different tomcat contexts in my DEV environment. This usually looks like this:
 
 ```
-/opt/apache-tomcat5 -> /opt/apache-tomcat-5.5/
-/opt/apache-tomcat-5.5/
 /opt/apache-tomcat6 -> /opt/apache-tomcat-6.0.26/
 /opt/apache-tomcat-6.0.26/
 /opt/apache-tomcat-6.0.35/
@@ -47,7 +45,7 @@ For this setup to work you need at least one Java (JRE or JDK) and one Tomcat in
 /opt/jre1.7.0_03/
 ```
 
-where __apache-tomcat5__, __apache-tomcat6__ and __apache-tomcat7__ are symlinks to the newest corresponding major version of the tomcat installation.
+where __apache-tomcat6__ and __apache-tomcat7__ are symlinks to the newest major version of the corresponding tomcat installation.
 
 
 # Folder structure
@@ -206,11 +204,13 @@ The tomcat roles and user file. This file initially contains some default users 
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
-        <role rolename="admin"/>
-        <role rolename="manager"/>
-        <role rolename="manager-gui"/>
-        <role rolename="tomcat"/>
-        <user username="tomcat" password="tomcat" roles="admin,manager,tomcat,manager-gui"/>
+	<role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<role rolename="manager-jmx"/>
+	<role rolename="manager-status"/>
+	<role tolename="tomcat"/>
+	<user username="tomcat" password="tomcat" roles="tomcat"/>
+	<user username="admin" password="s3cret" roles="manager-gui"/>
 </tomcat-users>
 ```
 

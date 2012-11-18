@@ -27,11 +27,13 @@ The tomcat roles and user file. This file initially contains some default users 
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
-        <role rolename="admin"/>
-        <role rolename="manager"/>
-        <role rolename="manager-gui"/>
-        <role rolename="tomcat"/>
-        <user username="tomcat" password="tomcat" roles="admin,manager,tomcat,manager-gui"/>
+	<role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<role rolename="manager-jmx"/>
+	<role rolename="manager-status"/>
+	<role tolename="tomcat"/>
+	<user username="tomcat" password="tomcat" roles="tomcat"/>
+	<user username="admin" password="s3cret" roles="manager-gui"/>
 </tomcat-users>
 ```
 
